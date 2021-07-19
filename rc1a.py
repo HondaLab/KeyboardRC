@@ -46,6 +46,6 @@ while not(ch=='q' or ch=='Q') :
       mL.run_direct(duty_cycle_sp=0)
       mR.run_direct(duty_cycle_sp=0)
 
-print('Bye bye, see you latar.')
+print('Bye bye, see you later.')
 mL.stop()
 mR.stop()
