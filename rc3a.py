@@ -25,9 +25,9 @@ def Run(mL,mR,left,right):
 if __name__=="__main__":
    STEP=8
    SLEEP=0.1
-   HANDLE_STEP=5
+   HANDLE_STEP=8
    HANDLE_TIME=0.3
-   TRIM_STEP=3
+   TRIM_STEP=8
    TRIM_TIME=0.2
 
    mL=mt.Lmotor(17)
@@ -52,24 +52,22 @@ if __name__=="__main__":
             left-= TRIM_STEP
             right+= TRIM_STEP
             Run(mL,mR,left,right)
-            angl=int(0.3*(right-left))
+            angl=int(0.4*(right-left))
             csv.run(angl)
-            #time.sleep(TRIM_TIME)
-            #csv.run(-angl)
-            #left+= TRIM_STEP
-            #right-= TRIM_STEP
 
          if ch == "k" :
             #TRIM_STEP=int(0.5*(left+right)*1.0)
             left+= TRIM_STEP
             right-= TRIM_STEP
             Run(mL,mR,left,right)
-            angl=int(0.3*(right-left))
+            angl=int(0.4*(right-left))
             csv.run(angl)
-            #time.sleep(TRIM_TIME)
-            #csv.run(-angl)
-            #left-= TRIM_STEP
-            #right+= TRIM_STEP
+
+         if ch == "g" :
+            left=int(0.5*(left+right)*1.0)
+            right=left
+            Run(mL,mR,left,right)
+            csv.run(0)
 
          if ch == "l" :
             HANDLE_STEP=int(0.5*(left+right)*2.0)
@@ -94,16 +92,14 @@ if __name__=="__main__":
          if ch == "f" :
             left+= STEP
             right+= STEP
-         if ch == "g" :
-            left+= 2*STEP
-            right+= 2*STEP
 
          if ch == "d" :
             left-= STEP
             right-= STEP
          if ch == "s" :
-            left-= 2*STEP
-            right-= 2*STEP
+            left= 0
+            right= 0
+            csv.run(0)
 
          Run(mL,mR,left,right)
 
