@@ -7,11 +7,10 @@
 # sudo pigpiod
 # pyhton3 rcXY.py 
 
-import keyin # キーボード入力を監視するモジュール
-import motor5a as mt # pwmでモーターを回転させるためのモジュール
-import motor1 as sv # カメラサーボ
+import modules.keyin as keyin # キーボード入力を監視するモジュール
+import modules.motor5a as mt # pwmでモーターを回転させるためのモジュール
+import modules.motor1 as sv # カメラサーボ
 import time
-import pigpio
 
 STEP=8
 HANDLE_STEP=8
