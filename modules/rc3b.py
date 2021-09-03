@@ -17,6 +17,7 @@ HANDLE_STEP=8
 HANDLE_TIME=0.3
 TRIM_STEP=8
 TRIM_TIME=0.2
+ANGL_GAIN=0.8
 
 class SsrRc():
 
@@ -32,14 +33,14 @@ class SsrRc():
          #TRIM_STEP=int(0.5*(left+right)*1.0)
          self.left-= TRIM_STEP
          self.right+= TRIM_STEP
-         angl=int(0.4*(self.right-self.left))
+         angl=int(ANGL_GAIN*(self.right-self.left))
          self.csv.run(angl)
 
       if ch == "k" :
          #TRIM_STEP=int(0.5*(self.left+self.right)*1.0)
          self.left+= TRIM_STEP
          self.right-= TRIM_STEP
-         angl=int(0.4*(self.right-self.left))
+         angl=int(ANGL_GAIN*(self.right-self.left))
          self.csv.run(angl)
 
       if ch == "g" :

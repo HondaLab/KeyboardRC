@@ -7,9 +7,9 @@
 import pigpio
 import time
 
-MIN_WIDTH=1000
+MIN_WIDTH=700
 MID_WIDTH=1580
-MAX_WIDTH=2000
+MAX_WIDTH=2450
 
 class Motor:
 
@@ -23,7 +23,12 @@ class Motor:
       #time.sleep(0.1)
 
    def move(self,power):
-      self.pi.set_servo_pulsewidth(self.gpio, MID_WIDTH+power)
+      output=MID_WIDTH+power
+      if output>MAX_WIDTH:
+         output=MAX_WIDTH
+      if output<MIN_WIDTH:
+         output=MIN_WIDTH
+      self.pi.set_servo_pulsewidth(self.gpio, output)
       #print(MID_WIDTH+power)
       time.sleep(self.SLEEP)    
 
@@ -33,19 +38,19 @@ class Motor:
 class Lmotor(Motor):
    def run(self,power):
       out=power*10
-      if out>1000:
-         out=1000
-      if out<-1000:
-         out=-1000
+      if out>1500:
+         out=1500
+      if out<-1500:
+         out=-1500
       self.move(-out)
 
 class Rmotor(Motor):
    def run(self,power):
       out=power*10
-      if out>1000:
-         out=1000
-      if out<-1000:
-         out=-1000
+      if out>1500:
+         out=1500
+      if out<-1500:
+         out=-1500
       self.move(out)
        
 if __name__=='__main__':

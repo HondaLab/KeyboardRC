@@ -8,25 +8,23 @@
 # pyhton3 rcXY.py 
 
 import modules.keyin as keyin # キーボード入力を監視するモジュール
-import modules.motor5a as mt # pwmでモーターを回転させるためのモジュール
-import modules.motor1 as sv # カメラサーボ
-import rc3b as rc
+import modules.rc3b as rc
 import time
 
-   SLEEP=0.1
-   ssr3=SsrRc()
+SLEEP=0.1
+ssr3=rc.SsrRc()
 
-   key = keyin.Keyboard()
-   ch="c"
-   print("Input q to stop.")
-   while ch!="q":
-      ch = key.read()
-      try:
-         ssr3.update(ch)
-         time.sleep(SLEEP)
-      except KeyboardInterrupt:
-         ssr3.stop()
-         break
+key = keyin.Keyboard()
+ch="c"
+print("Input q to stop.")
+while ch!="q":
+   ch = key.read()
+   try:
+      ssr3.update(ch)
+      #time.sleep(SLEEP)
+   except KeyboardInterrupt:
+      ssr3.stop()
+      break
 
-   print("\nTidying up")
-   ssr3.stop()
+print("\n Bye Bye!")
+ssr3.stop()
