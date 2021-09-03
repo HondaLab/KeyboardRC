@@ -7,9 +7,9 @@
 import pigpio
 import time
 
-MIN_WIDTH=1000
+MIN_WIDTH=700
 MID_WIDTH=1580
-MAX_WIDTH=2000
+MAX_WIDTH=2450
 
 class Motor:
 
