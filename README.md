@@ -3,6 +3,14 @@ RasPiロボット(SSRX)で，ラジコンで操縦するプログラムです．
 コントローラーは用いず，簡便にキーボードだけで，
 前進，後退，右折，左折などを行います．
 
+## 必要なもの (Requirement)
+### pigpiod
+```
+sudo apt-get install pigpiod
+```
+
+## キーボードで操縦します (Control by keyboard)
+
   - q: 終了
   - s: stop
   - f: 前進増速
