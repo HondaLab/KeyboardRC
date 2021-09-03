@@ -7,6 +7,17 @@ RasPiロボット(SSRX)で，ラジコンで操縦するプログラムです．
 ### pigpiod
 ```
 sudo apt-get install pigpiod
+sudo pigpiod
+```
+
+### OpenCV
+```
+sudo apt-get install python3-opencv
+```
+
+## rcXX.pyを実行してください．
+```
+python3 rcXY.py
 ```
 
 ## キーボードで操縦します (Control by keyboard)
@@ -21,7 +32,3 @@ sudo apt-get install pigpiod
   - l: 右折
 
 
-rcXX.pyを実行してください．
-```
-python3 rcXX.py
-```
