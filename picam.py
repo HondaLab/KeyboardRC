@@ -2,24 +2,18 @@
 # Yasushiu Honda 2021 9/8
 # Capture frames from PiCamera and record them to /tmp 
 
-import datetime
-import numpy as np
 import cv2
 import time
 from picamera.array import PiRGBArray
 from picamera import PiCamera
-from subprocess import Popen
-#sokcet tuusinn kannkei
-import socket
-#import socket1a as sk
 import modules.keyin as keyin
 
 class PI_CAMERA():
-   def __init__(self):
+   def __init__(self,width,height):
       
       # カメラの解像度 例：640x480, 320x240
-      self.RES_X=int( 320 )
-      self.RES_Y=int( 320 )
+      self.RES_X=int( width )
+      self.RES_Y=int( height )
       
       # initialize the camera and grab a reference to the raw camera capture
       #カメラを初期化，カメラへのアクセス？ルート？オブジェクト作成？
@@ -30,10 +24,10 @@ class PI_CAMERA():
 
       self.cam.awb_mode='auto'
       #list_awb = ['off', 'auto', 'sunlight', 'cloudy', 'shade']
-      self.cam.iso=800
+      self.cam.iso=400
       self.cam.shutter_speed=1000000
       self.cam.exposure_mode = 'auto' # off, auto, fixedfps
-      time.sleep(3)
+      time.sleep(1)
       self.g = self.cam.awb_gains
       self.cam.awb_mode = 'off'
       self.cam.awb_gains = self.g
@@ -61,13 +55,12 @@ if __name__ == "__main__":
     OUT_FILE="/tmp/output.mp4"
     fmt = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
     record_fps=9
-    width=320
-    height=320
+    width=720
+    height=480
     size = (width, height)
     vw = cv2.VideoWriter(OUT_FILE, fmt, record_fps, size)
 
-    select_hsv="n"     
-    cam = PI_CAMERA()
+    cam = PI_CAMERA(width,height)
 
     key=keyin.Keyboard()
     ch='c'
