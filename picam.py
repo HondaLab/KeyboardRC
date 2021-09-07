@@ -13,6 +13,7 @@ from subprocess import Popen
 #sokcet tuusinn kannkei
 import socket
 #import socket1a as sk
+import modules.keyin as keyin
 
 
 
@@ -146,6 +147,15 @@ class PI_CAMERA_CLASS():
        
 
 if __name__ == "__main__":
+    # For recording
+    OUT_FILE="output.mp4"
+    fmt = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
+    record_fps=9
+    width=320
+    height=320
+    size = (width, height)
+    vw = cv2.VideoWriter(OUT_FILE, fmt, record_fps, size)
+
     select_hsv="n"     
     picam = PI_CAMERA_CLASS()
     count = 0
@@ -158,14 +168,27 @@ if __name__ == "__main__":
        h_range = 10; s_range = 80; v_range = 60 # 明度の許容範囲
        lower_light = np.array([H-h_range, S-s_range, V-v_range])
        upper_light = np.array([H+h_range, S+s_range, V+v_range])
-    while 1:
+
+    key=keyin.Keyboard()
+    ch='c'
+
+    now=time.time()
+    start=now
+    while ch!='q':
+        now=time.time()
+        ch=key.read()
         try: 
             #picam.calc_dist_theta(lower_light,upper_light)
             dis, rad, frame = picam.calc_dist_theta(lower_light, upper_light)
-            cv2.imshow("test", frame)
-            cv2.waitKey(3)
+            cv2.imshow("Front View", frame)
+            cv2.waitKey(1)
+
+            vw.write(frame)
+
         except KeyboardInterrupt:
             print("ctrl + C ")
             cv2.destroyAllWindows()
+            vw.release()
 
-
+    cv2.destroyAllWindows()
+    vw.release()

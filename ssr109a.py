@@ -12,7 +12,7 @@ import modules.rc3b as rc
 import time
 
 SLEEP=0.1
-ssr3=rc.SsrRc()
+ssr3=rc.KeyMap()
 
 key = keyin.Keyboard()
 ch="c"
