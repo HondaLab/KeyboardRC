@@ -53,10 +53,12 @@ class PI_CAMERA():
 if __name__ == "__main__":
     # For recording
     OUT_FILE="/tmp/output.mp4"
+    print("# Captured movie is written in %s ." % OUT_FILE)
     fmt = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
     record_fps=9
     width=720
     height=480
+    print("# Resolution: %5d x %5d" % (width,height))
     size = (width, height)
     vw = cv2.VideoWriter(OUT_FILE, fmt, record_fps, size)
 
@@ -67,8 +69,10 @@ if __name__ == "__main__":
 
     now=time.time()
     start=now
+    print("# To stop, input 'q' in this terminal.")
     while ch!='q':
         now=time.time()
+        print("\r time: %8.2f" % (now-start), end='')
         ch=key.read()
         try: 
             frame = cam.capture()
@@ -84,3 +88,4 @@ if __name__ == "__main__":
 
     cv2.destroyAllWindows()
     vw.release()
+    print("\n # Bye-bye \n")
