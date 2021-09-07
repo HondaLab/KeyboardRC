@@ -148,7 +148,7 @@ class PI_CAMERA_CLASS():
 
 if __name__ == "__main__":
     # For recording
-    OUT_FILE="output.mp4"
+    OUT_FILE="Movies/output.mp4"
     fmt = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
     record_fps=9
     width=320
