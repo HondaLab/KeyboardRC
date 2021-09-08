@@ -19,7 +19,7 @@ TRIM_STEP=8
 TRIM_TIME=0.2
 ANGL_GAIN=0.8
 
-class SsrRc():
+class KeyAssign():
 
    def __init__(self):
       self.mL=mt.Lmotor(17)
