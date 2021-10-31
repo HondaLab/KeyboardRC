@@ -24,7 +24,7 @@ class PI_CAMERA():
 
       self.cam.awb_mode='auto'
       #list_awb = ['off', 'auto', 'sunlight', 'cloudy', 'shade']
-      self.cam.iso=100
+      self.cam.iso=200
       self.cam.shutter_speed=1000000
       self.cam.exposure_mode = 'auto' # off, auto, fixedfps
       time.sleep(1)
@@ -56,17 +56,23 @@ if __name__ == "__main__":
     print("# Captured movie is written in %s ." % OUT_FILE)
     fmt = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
     record_fps=9
-    # ex. 320x320, 640x480, 800x608, 1280x1024
-    width=1024
+    width=1200
     height=800
     print("# Resolution: %5d x %5d" % (width,height))
     size = (width, height)
-    vw = cv2.VideoWriter(OUT_FILE, fmt, record_fps, size)
+    crop_y = 100
+    crop_h = int(height*0.9)
+    crop_x = 10
+    crop_w = int(width*0.7)
+    crop = [crop_y,crop_y+crop_h,crop_x,crop_x+crop_w] 
+    print("# Crop: %5d x %5d" % (crop_w,crop_h))
+    vw = cv2.VideoWriter(OUT_FILE, fmt, record_fps, (crop_w,crop_h))
+    #vw = cv2.VideoWriter(OUT_FILE, fmt, record_fps, (width,height))
 
     cam = PI_CAMERA(width,height)
     frame=cam.capture()
-    bbox=cv2.selectROI(frame,False)
-    print(bbox)
+    #bbox=cv2.selectROI(frame,False)
+    #print(bbox)
 
     key=keyin.Keyboard()
     ch='c'
@@ -76,20 +82,23 @@ if __name__ == "__main__":
     print("# To stop, input 'q' in this terminal.")
     while ch!='q':
         now=time.time()
-        print("\r time: %8.2f" % (now-start), end='')
+        print("\r time: %8.2f " % (now-start), end='')
         ch=key.read()
         try: 
-            frame = cam.capture()
-            show=frame[bbox[1]:bbox[1]+bbox[3],bbox[0]:bbox[0]+bbox[2],:]
+            capt = cam.capture()
+            #print(len(v) for v in capt)
+            frame = capt[crop_y:crop_y+crop_h,crop_x:crop_x+crop_w,:]
+            frame = cv2.resize(frame,(crop_w,crop_h))
+            show_size=(800,608)
+            show=cv2.resize(frame,show_size)
             cv2.imshow("Front View", show)
             cv2.waitKey(1)
-
             vw.write(frame)
-
         except KeyboardInterrupt:
             print("ctrl + C ")
             cv2.destroyAllWindows()
             vw.release()
+        time.sleep(0.5)
 
     cv2.destroyAllWindows()
     vw.release()
