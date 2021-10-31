@@ -33,7 +33,7 @@ class PI_CAMERA():
       #self.cam.awb_gains = self.g
 
       self.cam.resolution = (self.RES_X, self.RES_Y)
-      self.cam.rotation=0
+      self.cam.rotation=180
       self.cam.meter_mode = 'average' # average, spot, backlit, matrix
       self.cam.exposure_compensation = 0
       self.rawCapture = PiRGBArray(self.cam, size=(self.RES_X, self.RES_Y))
@@ -57,14 +57,15 @@ if __name__ == "__main__":
     fmt = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
     record_fps=9
     width=1200
-    height=800
+    height=912
     print("# Resolution: %5d x %5d" % (width,height))
     size = (width, height)
-    crop_y = 100
-    crop_h = int(height*0.9)
-    crop_x = 10
-    crop_w = int(width*0.7)
-    crop = [crop_y,crop_y+crop_h,crop_x,crop_x+crop_w] 
+    crop_left = 220
+    crop_right = 1140
+    crop_upper = 90
+    crop_lower = 600
+    crop_h=crop_lower - crop_upper 
+    crop_w=crop_right - crop_left
     print("# Crop: %5d x %5d" % (crop_w,crop_h))
     vw = cv2.VideoWriter(OUT_FILE, fmt, record_fps, (crop_w,crop_h))
     #vw = cv2.VideoWriter(OUT_FILE, fmt, record_fps, (width,height))
@@ -87,7 +88,7 @@ if __name__ == "__main__":
         try: 
             capt = cam.capture()
             #print(len(v) for v in capt)
-            frame = capt[crop_y:crop_y+crop_h,crop_x:crop_x+crop_w,:]
+            frame = capt[crop_upper:crop_lower,crop_left:crop_right,:]
             frame = cv2.resize(frame,(crop_w,crop_h))
             show_size=(800,608)
             show=cv2.resize(frame,show_size)
