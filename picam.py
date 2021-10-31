@@ -19,18 +19,18 @@ class PI_CAMERA():
       #カメラを初期化，カメラへのアクセス？ルート？オブジェクト作成？
       self.cam = PiCamera()
       self.cam.framerate = 30  #フレームレート
-      self.cam.brightness = 60 #明るさ
+      self.cam.brightness = 50 #明るさ
       #cam.saturation = 50
 
       self.cam.awb_mode='auto'
       #list_awb = ['off', 'auto', 'sunlight', 'cloudy', 'shade']
-      self.cam.iso=400
+      self.cam.iso=100
       self.cam.shutter_speed=1000000
       self.cam.exposure_mode = 'auto' # off, auto, fixedfps
       time.sleep(1)
-      self.g = self.cam.awb_gains
-      self.cam.awb_mode = 'off'
-      self.cam.awb_gains = self.g
+      #self.g = self.cam.awb_gains
+      #self.cam.awb_mode = 'off'
+      #self.cam.awb_gains = self.g
 
       self.cam.resolution = (self.RES_X, self.RES_Y)
       self.cam.rotation=0
@@ -52,17 +52,21 @@ class PI_CAMERA():
 
 if __name__ == "__main__":
     # For recording
-    OUT_FILE="/tmp/output.mp4"
+    OUT_FILE="/tmp/output.avi"
     print("# Captured movie is written in %s ." % OUT_FILE)
     fmt = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
     record_fps=9
-    width=720
-    height=480
+    # ex. 320x320, 640x480, 800x608, 1280x1024
+    width=1024
+    height=800
     print("# Resolution: %5d x %5d" % (width,height))
     size = (width, height)
     vw = cv2.VideoWriter(OUT_FILE, fmt, record_fps, size)
 
     cam = PI_CAMERA(width,height)
+    frame=cam.capture()
+    bbox=cv2.selectROI(frame,False)
+    print(bbox)
 
     key=keyin.Keyboard()
     ch='c'
@@ -76,7 +80,8 @@ if __name__ == "__main__":
         ch=key.read()
         try: 
             frame = cam.capture()
-            cv2.imshow("Front View", frame)
+            show=frame[bbox[1]:bbox[1]+bbox[3],bbox[0]:bbox[0]+bbox[2],:]
+            cv2.imshow("Front View", show)
             cv2.waitKey(1)
 
             vw.write(frame)
