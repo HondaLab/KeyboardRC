@@ -33,7 +33,7 @@ class PI_CAMERA():
       #self.cam.awb_gains = self.g
 
       self.cam.resolution = (self.RES_X, self.RES_Y)
-      self.cam.rotation=180
+      self.cam.rotation=0
       self.cam.meter_mode = 'average' # average, spot, backlit, matrix
       self.cam.exposure_compensation = 0
       self.rawCapture = PiRGBArray(self.cam, size=(self.RES_X, self.RES_Y))
@@ -56,14 +56,14 @@ if __name__ == "__main__":
     print("# Captured movie is written in %s ." % OUT_FILE)
     fmt = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
     record_fps=9
-    width=1200
-    height=912
+    width=320 # 800
+    height=320  # 608
     print("# Resolution: %5d x %5d" % (width,height))
     size = (width, height)
-    crop_left = 220
-    crop_right = 1140
-    crop_upper = 90
-    crop_lower = 600
+    crop_left = 0
+    crop_right = width
+    crop_upper = 0
+    crop_lower = height
     crop_h=crop_lower - crop_upper 
     crop_w=crop_right - crop_left
     print("# Crop: %5d x %5d" % (crop_w,crop_h))
