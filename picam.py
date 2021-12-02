@@ -19,7 +19,7 @@ class PI_CAMERA():
       #カメラを初期化，カメラへのアクセス？ルート？オブジェクト作成？
       self.cam = PiCamera()
       self.cam.framerate = 30  #フレームレート
-      self.cam.brightness = 60 #明るさ
+      self.cam.brightness = 50 #明るさ
       #cam.saturation = 50
 
       self.cam.awb_mode='auto'
@@ -28,9 +28,9 @@ class PI_CAMERA():
       self.cam.shutter_speed=1000000
       self.cam.exposure_mode = 'auto' # off, auto, fixedfps
       time.sleep(1)
-      self.g = self.cam.awb_gains
-      self.cam.awb_mode = 'off'
-      self.cam.awb_gains = self.g
+      #self.g = self.cam.awb_gains
+      #self.cam.awb_mode = 'off'
+      #self.cam.awb_gains = self.g
 
       self.cam.resolution = (self.RES_X, self.RES_Y)
       self.cam.rotation=0
@@ -55,7 +55,7 @@ if __name__ == "__main__":
     record='n' # if you want record movie, select 'y' 
                # and its FPS down to 10Hz.
                # if you select 'n' FPS is 30Hz without recording.
-    OUT_FILE="/tmp/output.mp4"
+    OUT_FILE="/tmp/output.avi"
 
     PERIOD=0.2 # Indication period
 
@@ -63,13 +63,24 @@ if __name__ == "__main__":
     print("# Captured movie is written in %s ." % OUT_FILE)
     fmt = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
     record_fps=10
-    width=320
-    height=320
+    width=800 # 800
+    height=608  # 608
     print("# Resolution: %5d x %5d" % (width,height))
     size = (width, height)
-    vw = cv2.VideoWriter(OUT_FILE, fmt, record_fps, size)
+    crop_left = 0
+    crop_right = width
+    crop_upper = 0
+    crop_lower = height
+    crop_h=crop_lower - crop_upper 
+    crop_w=crop_right - crop_left
+    print("# Crop: %5d x %5d" % (crop_w,crop_h))
+    vw = cv2.VideoWriter(OUT_FILE, fmt, record_fps, (crop_w,crop_h))
+    #vw = cv2.VideoWriter(OUT_FILE, fmt, record_fps, (width,height))
 
     cam = PI_CAMERA(width,height)
+    frame=cam.capture()
+    bbox=cv2.selectROI(frame,False)
+    print(bbox)
 
     key=keyin.Keyboard()
     ch='c'
@@ -89,8 +100,13 @@ if __name__ == "__main__":
 
         ch=key.read()
         try: 
-            frame = cam.capture()
-            cv2.imshow("Front View", frame)
+            capt = cam.capture()
+            #print(len(v) for v in capt)
+            frame = capt[crop_upper:crop_lower,crop_left:crop_right,:]
+            frame = cv2.resize(frame,(crop_w,crop_h))
+            show_size=(800,608)
+            show=cv2.resize(frame,show_size)
+            cv2.imshow("Front View", show)
             cv2.waitKey(1)
 
             if record=='y':
@@ -100,6 +116,7 @@ if __name__ == "__main__":
             print("ctrl + C ")
             cv2.destroyAllWindows()
             vw.release()
+        time.sleep(0.5)
 
     cv2.destroyAllWindows()
     vw.release()
