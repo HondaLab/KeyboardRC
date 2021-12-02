@@ -16,7 +16,7 @@ HANDLE_STEP=8
 HANDLE_TIME=0.3
 TRIM_STEP=8
 TRIM_TIME=0.2
-ANGL_GAIN=0.6
+ANGL_GAIN=1.2
 
 class KeyAssign():
 
@@ -77,7 +77,9 @@ class KeyAssign():
          self.angl=0
 
       Run(self.mL,self.mR,self.csv,self.left,self.right,self.angl)
-      print("\r %4d %4d %4d" % (self.left,self.right,self.angl),end='')
+      #print("\r %4d %4d %4d" % (self.left,self.right,self.angl),end='')
+
+      return self.left, self.right
 
    def stop(self):
       self.mL.run(0)

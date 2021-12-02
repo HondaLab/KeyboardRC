@@ -24,7 +24,7 @@ class PI_CAMERA():
 
       self.cam.awb_mode='auto'
       #list_awb = ['off', 'auto', 'sunlight', 'cloudy', 'shade']
-      self.cam.iso=200
+      self.cam.iso=400
       self.cam.shutter_speed=1000000
       self.cam.exposure_mode = 'auto' # off, auto, fixedfps
       time.sleep(1)
@@ -56,8 +56,8 @@ if __name__ == "__main__":
     print("# Captured movie is written in %s ." % OUT_FILE)
     fmt = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
     record_fps=9
-    width=320 # 800
-    height=320  # 608
+    width=800 # 800
+    height=608  # 608
     print("# Resolution: %5d x %5d" % (width,height))
     size = (width, height)
     crop_left = 0

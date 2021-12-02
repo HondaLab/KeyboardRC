@@ -44,7 +44,7 @@ class Rmotor(Motor):
 class Servo(Motor):
    def move(self,power):
       gain=3.0
-      trim=65
+      trim=55
       output=int(gain*power)+trim
       self.output(output)
 
