@@ -72,8 +72,8 @@ if __name__ == "__main__":
 
     cam = PI_CAMERA(width,height)
     frame=cam.capture()
-    #bbox=cv2.selectROI(frame,False)
-    #print(bbox)
+    bbox=cv2.selectROI(frame,False)
+    print(bbox)
 
     key=keyin.Keyboard()
     ch='c'

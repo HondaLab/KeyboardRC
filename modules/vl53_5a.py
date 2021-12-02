@@ -34,9 +34,9 @@ def start():
    # GPIO for Sensor 1 shutdown pin
    sensor1_shutdown = 22
    # GPIO for Sensor 2 shutdown pin
-   sensor2_shutdown = 27
+   sensor2_shutdown = 4
    # GPIO for Sensor 3 shutdown pin
-   sensor3_shutdown = 4
+   sensor3_shutdown = 17
 
    GPIO.setwarnings(False)
 
