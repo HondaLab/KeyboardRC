@@ -9,20 +9,20 @@
 
 import modules.keyin as keyin # キーボード入力を監視するモジュール
 import modules.rc3b as rc
-import modules.vl53_5a as tof
+import modules.vl53_6a as tof
 import time
 import numpy as np
 
 SLEEP=0.1
 PERIOD=0.3
 ssr3=rc.KeyAssign()
-tofL,tofR,tofC=tof.start()
+tofL,tofR,tofC,tofM=tof.start()
 
 key = keyin.Keyboard()
 ch="c"
 print("##################################")
 print("Input q to stop.")
-print("left,right,distL,distC,distR")
+print("left,right,distL,distC,distR,distM")
 now=time.time()
 init=now
 start=now
@@ -33,9 +33,10 @@ while ch!="q":
       distL=tofL.get_distance()
       distR=tofR.get_distance()
       distC=tofC.get_distance()
+      distM=tofM.get_distance()
       now=time.time()
       if now-start>PERIOD:
-         print("\r %4d %4d %5d %5d %5d" % (left,right,distL,distC,distR),end='')
+         print("\r %4d %4d %5d %5d %5d %5d" % (left,right,distL,distC,distR,distM),end='')
          start=now
       #time.sleep(SLEEP)
    except KeyboardInterrupt:
