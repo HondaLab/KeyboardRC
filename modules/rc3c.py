@@ -80,8 +80,8 @@ class KeyAssign():
       if dL<1000 or dR<1000:
          if np.abs(dL-dR)>50:
             self.angl+=0.0005*(dR-dL)
-            if self.angl>100: self.angl=100
-            if self.angl<-100: self.angl=-100
+            if self.angl>120: self.angl=120
+            if self.angl<-120: self.angl=-120
       else:
          self.angl=0.0
       Run(self.mL,self.mR,self.csv,self.left,self.right,self.angl)
