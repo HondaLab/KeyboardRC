@@ -96,6 +96,7 @@ def shutdown(tof1,tof2,tof3):
    tof1.stop_ranging()
    tof2.stop_ranging()
    tof3.stop_ranging()
+   tof4.stop_ranging()
    #GPIO.output(sensor2_shutdown, GPIO.LOW)
    #GPIO.output(sensor1_shutdown, GPIO.LOW)
 

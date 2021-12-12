@@ -24,7 +24,7 @@ class PI_CAMERA():
 
       self.cam.awb_mode='auto'
       #list_awb = ['off', 'auto', 'sunlight', 'cloudy', 'shade']
-      self.cam.iso=400
+      self.cam.iso=800
       self.cam.shutter_speed=1000000
       self.cam.exposure_mode = 'auto' # off, auto, fixedfps
       time.sleep(1)
@@ -51,6 +51,10 @@ class PI_CAMERA():
 
 
 if __name__ == "__main__":
+
+    recording='y'
+    PERIOD=0.5
+
     # For recording
     OUT_FILE="/tmp/output.avi"
     print("# Captured movie is written in %s ." % OUT_FILE)
@@ -68,7 +72,6 @@ if __name__ == "__main__":
     crop_w=crop_right - crop_left
     print("# Crop: %5d x %5d" % (crop_w,crop_h))
     vw = cv2.VideoWriter(OUT_FILE, fmt, record_fps, (crop_w,crop_h))
-    #vw = cv2.VideoWriter(OUT_FILE, fmt, record_fps, (width,height))
 
     cam = PI_CAMERA(width,height)
     frame=cam.capture()
@@ -80,10 +83,11 @@ if __name__ == "__main__":
 
     now=time.time()
     start=now
+    init=now
+    count=0
     print("# To stop, input 'q' in this terminal.")
     while ch!='q':
         now=time.time()
-        print("\r time: %8.2f " % (now-start), end='')
         ch=key.read()
         try: 
             capt = cam.capture()
@@ -94,12 +98,22 @@ if __name__ == "__main__":
             show=cv2.resize(frame,show_size)
             cv2.imshow("Front View", show)
             cv2.waitKey(1)
-            vw.write(frame)
+            if recording=='y':
+               vw.write(frame)
         except KeyboardInterrupt:
             print("ctrl + C ")
             cv2.destroyAllWindows()
             vw.release()
-        time.sleep(0.5)
+
+        if now-start>PERIOD:
+           rate=count/PERIOD
+           print("\r time: %8.2f rate:%8.2f" % (now-init,rate), end='')
+           count=0
+           start=now
+
+        #time.sleep(0.5)
+           
+        count+=1
 
     cv2.destroyAllWindows()
     vw.release()
