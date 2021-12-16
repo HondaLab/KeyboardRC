@@ -23,7 +23,7 @@ key = keyin.Keyboard()
 ch="c"
 print("##################################")
 print("Input q to stop.")
-print("left,right,dL,dR,distC,distM")
+print("left,right,angl, distL,distC,distR,distM")
 now=time.time()
 init=now
 start=now
@@ -39,7 +39,7 @@ while ch!="q":
       left,right,angl=ssr3.update(ch,distL,distR)
       now=time.time()
       if now-start>PERIOD:
-         print("\r %4d %4d %5d %5d %5d" % (left,right,distL,distR,angl),end='')
+         print("\r %4d %4d %4d %5d %5d %5d %5d" % (left,right,angl,distL,distC,distR,distM),end='')
          start=now
       #time.sleep(SLEEP)
    except KeyboardInterrupt:
