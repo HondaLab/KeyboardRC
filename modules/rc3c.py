@@ -84,6 +84,8 @@ class KeyAssign():
             if self.angl<-120: self.angl=-120
       else:
          self.angl=0.0
+
+      self.angl=0.0
       Run(self.mL,self.mR,self.csv,self.left,self.right,self.angl)
       #print("\r %4d %4d %4d" % (self.left,self.right,self.angl),end='')
 

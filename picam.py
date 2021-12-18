@@ -25,7 +25,7 @@ class PI_CAMERA():
       self.cam.awb_mode='auto'
       #list_awb = ['off', 'auto', 'sunlight', 'cloudy', 'shade']
       self.cam.iso=1600
-      self.cam.shutter_speed=1000000
+      self.cam.shutter_speed=100000000
       self.cam.exposure_mode = 'auto' # off, auto, fixedfps
       time.sleep(1)
       #self.g = self.cam.awb_gains
@@ -53,6 +53,7 @@ class PI_CAMERA():
 if __name__ == "__main__":
 
     recording='y'
+    select='n'
     PERIOD=0.5
 
     # For recording
@@ -66,7 +67,7 @@ if __name__ == "__main__":
     size = (width, height)
     crop_left = 0
     crop_right = width
-    crop_upper = 0
+    crop_upper = 200
     crop_lower = height
     crop_h=crop_lower - crop_upper 
     crop_w=crop_right - crop_left
@@ -75,8 +76,9 @@ if __name__ == "__main__":
 
     cam = PI_CAMERA(width,height)
     frame=cam.capture()
-    bbox=cv2.selectROI(frame,False)
-    print(bbox)
+    if select=='y':
+       bbox=cv2.selectROI(frame,False)
+       print(bbox)
 
     key=keyin.Keyboard()
     ch='c'
@@ -94,7 +96,7 @@ if __name__ == "__main__":
             #print(len(v) for v in capt)
             frame = capt[crop_upper:crop_lower,crop_left:crop_right,:]
             frame = cv2.resize(frame,(crop_w,crop_h))
-            show_size=(800,608)
+            show_size=(800,400)
             show=cv2.resize(frame,show_size)
             cv2.imshow("Front View", show)
             cv2.waitKey(1)
