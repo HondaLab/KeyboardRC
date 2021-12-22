@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
-# rc3b.py
+# rc4ps3.py
+# Control left and right motors by single jyostick
 # Yasushi Honda 2021 9/3
 
 # How to execute
@@ -22,11 +23,11 @@ class Assign():
       self.right=0
       self.angl=0
 
-   def update(self,Ly,Ry,dL,dR):
+   def update(self,Rx,Ry,dL,dR):
 
       # Controll by PS3 controller
-      self.left=-70*Ly
-      self.right=-70*Ry
+      self.left=-70*Ry+50*Rx
+      self.right=-70*Ry-50*Rx
 
       if dL<1000 or dR<1000:
          if np.abs(dL-dR)>50:

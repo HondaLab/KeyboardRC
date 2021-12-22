@@ -8,7 +8,7 @@
 # pyhton3 ssrXY.py 
 
 import modules.keyin as keyin # キーボード入力を監視するモジュール
-import modules.rc3ps3 as rc
+import modules.rc4ps3 as rc
 import modules.vl53_6a as tof
 import modules.socket as sk
 import socket
@@ -34,7 +34,9 @@ while ch!="q":
    ch = key.read()
    try:
       data=udp.recv()
+      Lx=data[0]
       Ly=data[1]
+      Rx=data[2]
       Ry=data[3]
       distL=tofL.get_distance()
       distR=tofR.get_distance()
@@ -42,7 +44,7 @@ while ch!="q":
       distM=tofM.get_distance()
       dL=np.sqrt(distL*distC)
       dR=np.sqrt(distR*distC)
-      left,right,angl=ssr3.update(Ly,Ry,distL,distR)
+      left,right,angl=ssr3.update(Rx,Ry,distL,distR)
       now=time.time()
       if now-start>PERIOD:
          print("\r %4d %4d %4d %5.2f %5.2f %5.2f %5.2f" % (left,right,angl,data[0],data[1],data[2],data[3]),end='')
