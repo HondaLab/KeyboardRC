@@ -1,6 +1,6 @@
 import socket
 
-robot = '172.16.7.101'
+robot = '172.16.8.101'
 port = 50001
 
 class UDP_Send():
