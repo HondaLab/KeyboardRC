@@ -46,7 +46,7 @@ while ch!="q":
          print("\r %4d %4d %4d %5.2f %5.2f %5.2f %5.2f" % (left,right,angl,data[0],data[1],data[2],data[3]),end='')
          start=now
       #time.sleep(SLEEP)
-   except (BlockingIOError, socket.error)
+   except (BlockingIOError, socket.error):
       pass
 
 print("\n Bye Bye!")
