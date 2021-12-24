@@ -9,7 +9,7 @@
 
 import modules.keyin as keyin # キーボード入力を監視するモジュール
 import modules.rc4ps3 as rc
-import modules.vl53_6a as tof
+import modules.vl53_5a as tof
 import modules.socket as sk
 import socket
 import time
@@ -25,11 +25,14 @@ data=[4]
 key = keyin.Keyboard()
 ch="c"
 print("##################################")
+message="This recieves controll signal from 'ps3.py'."
+print(message)
 print("Input q to stop.")
-print("left,right,angl,   Lx,   Ly,   Rx,   Ry")
+print("##################################")
 now=time.time()
 init=now
 start=now
+print("left,right,angl,   Lx,   Ly,   Rx,   Ry")
 while ch!="q":
    ch = key.read()
    try:

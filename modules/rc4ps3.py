@@ -16,9 +16,9 @@ import time
 class Assign():
 
    def __init__(self):
-      self.mL=mt.Lmotor(23)
-      self.mR=mt.Rmotor(14)
-      self.csv=mt.Servo(18)
+      self.mL=mt.Lmotor(17)
+      self.mR=mt.Rmotor(18)
+      self.csv=mt.Servo(14)
       self.left=0
       self.right=0
       self.angl=0
