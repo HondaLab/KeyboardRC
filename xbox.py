@@ -10,9 +10,7 @@ import modules.keyin as kin
 pygame.joystick.init()
 try:
    # ジョイスティックインスタンスの生成
-   x = pygame.joystick.get_count()
-   print("Joystick count:%3d" % x)
-   joystick = pygame.joystick.Joystick(x-1)
+   joystick = pygame.joystick.Joystick(2)
    joystick.init()
    print('ジョイスティックの名前:', joystick.get_name())
    print('ボタン数 :', joystick.get_numbuttons())
@@ -36,6 +34,7 @@ ch='c'
 while ch!='q':
    # イベントの取得
    for e in pygame.event.get():
+       #print(e.type)
        # 終了ボタン
        if e.type == QUIT:
            active = False
@@ -51,13 +50,16 @@ while ch!='q':
            data.append(joystick.get_axis(4))
            udp.send(data)
            data.clear()
-       '''
+       #'''
        elif e.type == pygame.locals.JOYBUTTONDOWN:
            print('ボタン'+str(e.button)+'を押した')
        elif e.type == pygame.locals.JOYBUTTONUP:
            print('ボタン'+str(e.button)+'を離した')
-       '''
+       #'''
 
    ch=key.read()
+   #count+=1
+   #print(count,pygame.event.get())
+   
 
 print("\n")
