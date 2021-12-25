@@ -52,7 +52,7 @@ class PI_CAMERA():
 
 if __name__ == "__main__":
 
-    recording='y'
+    recording='n'
     select='n'
     PERIOD=0.5
 
@@ -61,13 +61,13 @@ if __name__ == "__main__":
     print("# Captured movie is written in %s ." % OUT_FILE)
     fmt = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
     record_fps=9
-    width=800 # 800
-    height=608  # 608
+    width=400 # 800
+    height=300  # 608
     print("# Resolution: %5d x %5d" % (width,height))
     size = (width, height)
     crop_left = 0
     crop_right = width
-    crop_upper = 200
+    crop_upper = int(height*0.3)
     crop_lower = height
     crop_h=crop_lower - crop_upper 
     crop_w=crop_right - crop_left
