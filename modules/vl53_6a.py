@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-# for 3 tofs
-# vl53_4a.py  Yasushi Honda 2020 8.7
+# for 4 tofs
+# vl53_6a.py  Yasushi Honda 2021 12.25
 # This modeule code is to access trible vl53l0x connected GPIO of RasPi
 
 # MIT License
