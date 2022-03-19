@@ -1,6 +1,6 @@
-# Keyboard RC
+# Manual Control Robot
 RasPiロボット(SSRX)で，ラジコンで操縦するプログラムです．
-## プレステ3の今トロラーでラジコン 
+## プレステ3のコントローラーでラジコン 
 modules/socket.py のなかのIPアドレス
 
 robot='172.16.xxx.yyy'
