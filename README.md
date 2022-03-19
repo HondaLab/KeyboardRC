@@ -1,11 +1,36 @@
-# Keyboard RC
+# Manual Control Robot
 RasPiロボット(SSRX)で，ラジコンで操縦するプログラムです．
+## プレステ3のコントローラーでラジコン 
+modules/socket.py のなかのIPアドレス
+
+robot='172.16.xxx.yyy'
+
+をロボットのIPアドレスに変更する．
+これはPS3コントローラーを接続したPCと，ロボット双方で必要．
+PS3コントローラを接続したPCで ps3.pyを実行．
+ロボットでssr3ps3.pyを実行．
+
+
 コントローラーは用いず，簡便にキーボードだけで，
 前進，後退，右折，左折などを行います．
+
+## Piカメラの向きを距離センサで制御
+実行プログラム：ssr101b.py 
+制御のアルゴリズムは modules/rc3c.py 内のKeyAssignクラスupdateメソッドの中に．
+
+tofセンサーを４つ搭載した．
+対応表
+
+|ssr101b |tofL | tofR | tofC | tofM |
+---------|-----|------|------|------|
+|vl53_6a |tof1 | tof2 | tof3 | tof4 |
+|gpio    |22   |  4   | 17   |  27  |
 
 ## GPIOの変更
 SSR2.1/3.1 でGPIOを大幅に変更する．
 基盤上のピン配置と配線スペースの都合上．
+
+
 motorL:23; motorR:14
 camera servo:18
 

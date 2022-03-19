@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
-# ssr101a.py
+# ssr101b.py
+# This moves camera toward shorter distance averaged.
 # Yasushi Honda 2021 12/3
 
 # How to execute
@@ -8,7 +9,7 @@
 # pyhton3 ssrXY.py 
 
 import modules.keyin as keyin # キーボード入力を監視するモジュール
-import modules.rc3b as rc
+import modules.rc3c as rc
 import modules.vl53_6a as tof
 import time
 import numpy as np
@@ -22,21 +23,23 @@ key = keyin.Keyboard()
 ch="c"
 print("##################################")
 print("Input q to stop.")
-print("left,right,distL,distC,distR,distM")
+print("left,right,angl, distL,distC,distR,distM")
 now=time.time()
 init=now
 start=now
 while ch!="q":
    ch = key.read()
    try:
-      left,right=ssr3.update(ch)
       distL=tofL.get_distance()
       distR=tofR.get_distance()
       distC=tofC.get_distance()
       distM=tofM.get_distance()
+      dL=np.sqrt(distL*distC)
+      dR=np.sqrt(distR*distC)
+      left,right,angl=ssr3.update(ch,distL,distR)
       now=time.time()
       if now-start>PERIOD:
-         print("\r %4d %4d %5d %5d %5d %5d" % (left,right,distL,distC,distR,distM),end='')
+         print("\r %4d %4d %4d %5d %5d %5d %5d" % (left,right,angl,distL,distC,distR,distM),end='')
          start=now
       #time.sleep(SLEEP)
    except KeyboardInterrupt:
