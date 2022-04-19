@@ -26,8 +26,8 @@ class Assign():
    def update(self,Rx,Ry,dL,dR):
 
       # Controll by PS3 controller
-      self.left=-70*Ry+50*Rx
-      self.right=-70*Ry-50*Rx
+      self.left=-80*Ry+70*Rx
+      self.right=-80*Ry-70*Rx
 
       if dL<1000 or dR<1000:
          if np.abs(dL-dR)>50:
